@@ -1,0 +1,11 @@
+/* Primary Colors */
+fau-blue: #003366; /* RGB: 0, 51, 102 */
+fau-red: #CC0000; /* RGB: 204, 0, 0 */
+fau-dark-gray: #4D4C55; /* RGB: 77, 76, 85 */
+fau-gray: #CCCCCC; /* RGB: 204, 204, 204 */
+
+/* Extended Colors */
+fau-electric-blue: #126BD9; /* RGB: 18, 107, 217 */
+fau-stone: #7A97AB; /* RGB: 122, 151, 171 */
+fau-sky-blue: #D9ECFF; /* RGB: 217, 236, 255 */
+fau-sand: #D4B98B; /* RGB: 212, 185, 139 */

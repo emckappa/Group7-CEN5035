@@ -59,28 +59,36 @@ function App() {
     };
 
   return (
-    <div className='App'>
-      <h1>TA Management System</h1>
-      <div className="button-group">
-          <button onClick={() => setCurrentForm('login')} className={currentForm === 'login' ? 'active' : ''}>
-            Login
-          </button>
-          <button onClick={() => setCurrentForm('TA')} className={currentForm === 'TA' ? 'active' : ''}>
-            TA
-          </button>
-          <button onClick={() => setCurrentForm('admin')} className={currentForm === 'admin' ? 'active' : ''}>
-            Admin
-          </button>
-          <button onClick={() => setCurrentForm('committee')} className={currentForm === 'committee' ? 'active' : ''}>
-            Committee
-          </button>
-          <button onClick={() => setCurrentForm('instructor')} className={currentForm === 'instructor' ? 'active' : ''}>
-            Instructor
-          </button>
+    <div className="container-fluid">
+    <div className="page-title align-items-center justify-content-center container-fluid">
+            <br />
+            <h1>TA Management System</h1>
+            <br />
+          </div>
+      <div className="d-flex flex-wrap align-items-center justify-content-center">
+        <div className='App'>
+          <br/>
+          <div className="button-group">
+              <button onClick={() => setCurrentForm('login')} className={currentForm === 'login' ? 'active' : ''}>
+                Login
+              </button>
+              <button onClick={() => setCurrentForm('TA')} className={currentForm === 'TA' ? 'active' : ''}>
+                TA
+              </button>
+              <button onClick={() => setCurrentForm('admin')} className={currentForm === 'admin' ? 'active' : ''}>
+                Admin
+              </button>
+              <button onClick={() => setCurrentForm('committee')} className={currentForm === 'committee' ? 'active' : ''}>
+                Committee
+              </button>
+              <button onClick={() => setCurrentForm('instructor')} className={currentForm === 'instructor' ? 'active' : ''}>
+                Instructor
+              </button>
+          </div>
+          {formComponents[currentForm] || <Login onFormSwitch={renderForm} />}
+        </div>
       </div>
-      {formComponents[currentForm] || <Login onFormSwitch={renderForm} />}
-    </div>
-      
+    </div>  
   )
 }
 

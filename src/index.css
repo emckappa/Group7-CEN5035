@@ -1,0 +1,41 @@
+.header-logo {
+    height: 40px;
+}
+.page-title {
+    background-image: url("/public/boca-ariel.jpg");
+    background-position: center;
+    height: 400px;
+}
+.page-title h1 {
+    color: #FFF;
+    text-align: center;
+    background-color: rgba(0, 51, 102, 0.6);
+    margin: auto; 
+    padding: 10px;
+    align-items: center;
+    width: fit-content;
+
+}
+.main-background-color {
+	background-color: #003366;
+}
+.white-text {
+	text-color: #FFF;
+}
+.grey-text {
+    text-color: #4D4C55;
+}
+header.main-background-color a {
+    color: #fff !important;
+    text-decoration: none; /* Optional: Removes underline from links */
+}
+
+header.main-background-color a:hover {
+    color: #CCCCCC !important; /* Optional: Slightly lighter color on hover for contrast */
+}
+
+.grey-text li a {
+    color: #4D4C55 !important;
+    text-decoration: none; /* Optional: Removes underline from links */
+}
+
