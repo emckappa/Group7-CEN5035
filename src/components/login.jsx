@@ -1,43 +1,61 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
 
-export default Login = () => {
-
+// const Login = () => {
+  export default props  => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const navigate = useNavigate();
 
   const handleLogin = (e) => {
     e.preventDefault();
+    console.log("hi")
 
-    if (email === 'TA' && password === 'password') {
+    if (email == 'TA@gmail.com' && password == '123') {
       // Save login status to localStorage or a global state
-      localStorage.setItem("userType", "TA");
-      // Redirect to the landing page
-      navigate('/TA');
-    } else {
+      sessionStorage.setItem("userType", "TA");
+      console.log(sessionStorage.getItem("userType"))
+      props.onFormSwitch('TA')
+    } 
+    else if (email === 'admin@gmail.com' && password === '123') {
+      sessionStorage.setItem("userType", "admin");
+      console.log(sessionStorage.getItem("userType"))
+      props.onFormSwitch('admin')
+    }
+    else if (email === 'committee@gmail.com' && password === '123') {
+      sessionStorage.setItem("userType", "committee");
+      console.log(sessionStorage.getItem("userType"))
+      props.onFormSwitch('committee')
+    }
+    else if (email === 'instructor@gmail.com' && password === '123') {
+      sessionStorage.setItem("userType", "instructor");
+      console.log(sessionStorage.getItem("userType"))
+      props.onFormSwitch('instructor')
+    }
+    
+    else {
       alert('Invalid credentials');
     }
   }
 
   return (
-    <div>
-      <h2 id="header">Login</h2>
-      <row>
-          <input type="email" class="inputEntry input-field" id="email" placeholder="Email" onChange={(e) => setEmail(e.target.value)} name="email"/>
-          <label class="labelEntry" for="email"></label>
-      </row>
+    <form onSubmit={handleLogin} className="login-form">
+      <div>
+        <h2 id="header">Login</h2>
+        <div>
+            <input type="email" class="inputEntry input-field" id="email" placeholder="Email" onChange={(e) => setEmail(e.target.value)} name="email"/>
+            <label class="labelEntry" for="email"></label>
+        </div>
 
-      <div id="divider"></div>
-      <row>
-          <input type="password" class="inputEntry input-field" id="password" placeholder="Password" onChange={(e) => setPass(e.target.value)} name="password"/>
-          <label class="labelEntry" for="password"></label>
-      </row>
-      <div id="divider"></div>
-      <row>
-          <button type="submit" className="btn btn-lg">LOGIN</button>
-      </row>
-    </div>
+        <div id="divider"></div>
+        <div>
+            <input type="password" class="inputEntry input-field" id="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} name="password"/>
+            <label class="labelEntry" for="password"></label>
+        </div>
+        <div id="divider"></div>
+        <div>
+            <button type="submit" className="btn btn-lg">LOGIN</button>
+        </div>
+      </div>
+    </form>
   );
 };
 
