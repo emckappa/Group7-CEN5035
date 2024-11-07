@@ -1,0 +1,14 @@
+.main-background-color {
+	background-color: #003366;
+}
+.white-text {
+	text-color: #FFF;
+}
+header.main-background-color a {
+    color: #fff !important;
+    text-decoration: none; /* Optional: Removes underline from links */
+}
+
+header.main-background-color a:hover {
+    color: #CCCCCC !important; /* Optional: Slightly lighter color on hover for contrast */
+}

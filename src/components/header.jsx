@@ -4,7 +4,7 @@ const header = () => {
   return (
         <header className="p-3 mb-3 border-bottom">
     <div className="container">
-    <div className="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+    <div className="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start main-background-color white-text">
         <a href="/" className="d-flex align-items-center mb-2 mb-lg-0 link-body-emphasis text-decoration-none">
         <svg className="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"/></svg>
         </a>
