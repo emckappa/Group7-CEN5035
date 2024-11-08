@@ -4,17 +4,46 @@
 .page-title {
     background-image: url("/public/boca-ariel.jpg");
     background-position: center;
-    height: 400px;
+    padding-top: 80px;
+    padding-bottom: 80px;
+    --bs-gutter-x: 0;
 }
 .page-title h1 {
     color: #FFF;
     text-align: center;
-    background-color: rgba(0, 51, 102, 0.6);
+    background-color: rgba(0, 51, 102, 0.8);
     margin: auto; 
     padding: 10px;
     align-items: center;
     width: fit-content;
 
+}
+.blue-button-group button {
+    background-color: #003366;
+    color: white;
+    border-color: white;
+}
+.blue-button-group button.active {
+    background-color: #7A97AB; ;
+}
+.blue-button-group button:hover {
+    background-color: #4D4C55 ;
+
+}
+.blue-button {
+    background-color: #003366;
+    color: white;
+    border-color: white;
+}
+.blue-button:hoover {
+    background-color: #4D4C55 ;
+    color: white;
+}
+.submit-button {
+    margin: 10px 0px;
+}
+input {
+     margin: 10px 0px;
 }
 .main-background-color {
 	background-color: #003366;

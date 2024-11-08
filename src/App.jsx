@@ -59,16 +59,21 @@ function App() {
     };
 
   return (
+    
     <div className="container-fluid">
-    <div className="page-title align-items-center justify-content-center container-fluid">
-            <br />
+      <div className="page-title align-items-center justify-content-center container-fluid">
+        <div className="row align-items-center">
+          <div className="col-md-12">
+        <br />
             <h1>TA Management System</h1>
-            <br />
-          </div>
+        <br />
+        </div>
+        </div>
+      </div>
       <div className="d-flex flex-wrap align-items-center justify-content-center">
         <div className='App'>
           <br/>
-          <div className="button-group">
+          <div className="button-group blue-button-group">
               <button onClick={() => setCurrentForm('login')} className={currentForm === 'login' ? 'active' : ''}>
                 Login
               </button>

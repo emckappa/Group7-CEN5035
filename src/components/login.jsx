@@ -40,19 +40,21 @@ import React, { useState } from 'react';
     <form onSubmit={handleLogin} className="login-form">
       <div>
         <h2 id="header">Login</h2>
+
         <div>
             <input type="email" class="inputEntry input-field" id="email" placeholder="Email" onChange={(e) => setEmail(e.target.value)} name="email"/>
             <label class="labelEntry" for="email"></label>
         </div>
-
-        <div id="divider"></div>
+        <div id="divider">
+          
+        </div>
         <div>
             <input type="password" class="inputEntry input-field" id="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} name="password"/>
             <label class="labelEntry" for="password"></label>
         </div>
         <div id="divider"></div>
         <div>
-            <button type="submit" className="btn btn-lg">LOGIN</button>
+            <button type="submit" className="btn btn-sm blue-button submit-button">LOGIN</button>
         </div>
       </div>
     </form>
