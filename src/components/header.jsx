@@ -26,7 +26,7 @@ const header = () => {
 
         <div className="dropdown text-end">
         <a href="#" className="d-block link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-            <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" className="rounded-circle"/>
+            <img src="https://e7.pngegg.com/pngimages/716/738/png-clipart-silhouette-male-person-silhouette-animals-head-thumbnail.png" alt="mdo" width="32" height="32" className="rounded-circle"/>
         </a>
 
         <ul className="dropdown-menu text-small grey-text">  
