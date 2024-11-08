@@ -70,27 +70,33 @@ function App() {
         </div>
         </div>
       </div>
-      <div className="d-flex flex-wrap align-items-center justify-content-center">
-        <div className='App'>
+      <div className="row align-items-center justify-content-center">
+        <div className="App center col-md-12 justify-content-center">
           <br/>
-          <div className="button-group blue-button-group">
-              <button onClick={() => setCurrentForm('login')} className={currentForm === 'login' ? 'active' : ''}>
-                Login
-              </button>
-              <button onClick={() => setCurrentForm('TA')} className={currentForm === 'TA' ? 'active' : ''}>
-                TA
-              </button>
-              <button onClick={() => setCurrentForm('admin')} className={currentForm === 'admin' ? 'active' : ''}>
-                Admin
-              </button>
-              <button onClick={() => setCurrentForm('committee')} className={currentForm === 'committee' ? 'active' : ''}>
-                Committee
-              </button>
-              <button onClick={() => setCurrentForm('instructor')} className={currentForm === 'instructor' ? 'active' : ''}>
-                Instructor
-              </button>
+          <div className="row justify-content-center">
+            <div className="button-group blue-button-group col-md-4">
+                <button onClick={() => setCurrentForm('login')} className={currentForm === 'login' ? 'active' : ''}>
+                  Login
+                </button>
+                <button onClick={() => setCurrentForm('TA')} className={currentForm === 'TA' ? 'active' : ''}>
+                  TA
+                </button>
+                <button onClick={() => setCurrentForm('admin')} className={currentForm === 'admin' ? 'active' : ''}>
+                  Admin
+                </button>
+                <button onClick={() => setCurrentForm('committee')} className={currentForm === 'committee' ? 'active' : ''}>
+                  Committee
+                </button>
+                <button onClick={() => setCurrentForm('instructor')} className={currentForm === 'instructor' ? 'active' : ''}>
+                  Instructor
+                </button>
+            </div>
           </div>
-          {formComponents[currentForm] || <Login onFormSwitch={renderForm} />}
+          <div className="row justify-content-center">
+            <div classname="col-md-6">
+            {formComponents[currentForm] || <Login onFormSwitch={renderForm} />}
+            </div>
+          </div>
         </div>
       </div>
     </div>  
