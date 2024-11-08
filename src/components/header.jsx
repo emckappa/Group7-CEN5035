@@ -2,11 +2,13 @@ import React from 'react'
 
 const header = () => {
   return (
+
         <header className="p-3 mb-3 border-bottom main-background-color white-text">
     <div className="container">
     <div className="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start ">
         <a href="/" className="d-flex align-items-center mb-2 mb-lg-0 link-body-emphasis text-decoration-none">
         <img src="/public/owlhead-logo.png" alt="fau owl owlhead-logo" className="header-logo"></img>
+
         <svg className="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"/></svg>
         </a>
 
@@ -25,7 +27,9 @@ const header = () => {
         <a href="#" className="d-block link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
             <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" className="rounded-circle"/>
         </a>
+
         <ul className="dropdown-menu text-small grey-text">  
+
             {/* <li><a className="dropdown-item" href="#">New project...</a></li> */}
             <li><a className="dropdown-item" href="/settings">Settings</a></li>
             <li><a className="dropdown-item" href="/profile">Profile</a></li>

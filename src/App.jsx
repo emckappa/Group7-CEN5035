@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import Login from './components/login';
 import TA from './components/TA'
@@ -9,7 +10,25 @@ import viteLogo from '/vite.svg'
 import './App.css'
 
 function App() {
-    const [currentForm, setCurrentForm] = useState('login');
+   
+
+
+
+function App() {
+  const { isAuthenticated } = useAuth0();
+
+  return (
+    <div className='App text-center bg-warning'>
+      <header>
+        <h1>TA Management Dashboard</h1>
+      </header>
+
+      <div>
+        <AuthButtons /> {/* Shows Log In/Log Out button based on authentication status */}
+        
+        {isAuthenticated ? (
+          <Profile /> /* Display Profile component if user is authenticated */
+           const [currentForm, setCurrentForm] = useState('login');
 
     const renderForm = () => {
       if (sessionStorage.getItem("userType") === "TA"){
@@ -102,5 +121,14 @@ function App() {
     </div>  
   )
 }
+        ) : (
+          <p>Please log in to access your profile and other features.</p>
+        )}
+      </div>
+    </div>
+  );
+}
 
 export default App;
+
+
