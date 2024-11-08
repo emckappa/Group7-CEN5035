@@ -93,8 +93,8 @@ function App() {
             </div>
           </div>
           <div className="row justify-content-center">
-            <div classname="col-md-6">
-            {formComponents[currentForm] || <Login onFormSwitch={renderForm} />}
+            <div className="col-md-8">
+              {formComponents[currentForm] || <Login onFormSwitch={renderForm} />}
             </div>
           </div>
         </div>
