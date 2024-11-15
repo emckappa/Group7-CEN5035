@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import Login from './components/login';
 import TA from './components/TA'
@@ -74,7 +75,7 @@ function App() {
         <div className="App center col-md-12 justify-content-center">
           <br/>
           <div className="row justify-content-center">
-            <div className="button-group blue-button-group col-md-4">
+            <div className="button-group blue-button-group col-md-8">
                 <button onClick={() => setCurrentForm('login')} className={currentForm === 'login' ? 'active' : ''}>
                   Login
                 </button>
@@ -104,3 +105,4 @@ function App() {
 }
 
 export default App;
+
