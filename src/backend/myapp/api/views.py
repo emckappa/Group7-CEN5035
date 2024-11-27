@@ -1,10 +1,283 @@
+from django.contrib.auth.hashers import make_password, check_password
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.exceptions import NotFound
 from rest_framework import status
 from .models import User, Course, Application, Assignment, Notification, Review
 from .serializers import UserSerializer, CourseSerializer, ApplicationSerializer, AssignmentSerializer, NotificationSerializer, ReviewSerializer
+from supabase import create_client, Client
 
+
+#TODO: Supabase Client
+#-------------------------------------------------------------------------------
+url = "https://qguyqnambotnqensjyku.supabase.co"
+key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFndXlxbmFtYm90bnFlbnNqeWt1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mjk4OTMwOTcsImV4cCI6MjA0NTQ2OTA5N30.aJ-FqjjHHJUozIZ-aayF4wguIHUIqjnU1cHt4U2Ci5I"
+supabase: Client = create_client(url, key)
+
+
+#TODO: Login
+#-------------------------------------------------------------------------------
+@api_view(['POST'])
+def login_user(request):
+    email = request.data.get('email')
+    password = request.data.get('password')
+    
+    #Pull User info from Supabase DB
+    result = supabase.table('users').select('*').eq('email', email).execute()
+    
+    if result.data:
+        user = result.data[0]
+        password_hash = user['password_hash']
+        
+        #Check user password with hashed password in DB; Match -> Logged in / Not match -> Error
+        if check_password(password, password_hash):
+            print("Login successful")
+            return Response(user, status=status.HTTP_200_OK)
+        else:
+            print("Wrong password")
+            return Response({'message': 'Invalid credentials'}, status=status.HTTP_400_BAD_REQUEST)
+        
+    else:
+        print("User not found.")
+        return Response(None, status=status.HTTP_404_NOT_FOUND)
+
+
+#TODO: Modular Functions
+#-------------------------------------------------------------------------------
+def create_object(request, table_name):                #Create a new Object from data provided
+    #Create a data object of data besides the table_name to be inserted into DB
+    data = {key: value for key,value in request.data.items() if key != 'table_name'}
+
+    #Handle exception if table_name or data isn't provided
+    if not table_name or not data:
+        return Response({"error": "All fields are required"}, status=status.HTTP_400_BAD_REQUEST)
+
+    #For creating Users, Hash passwords using Django's built-in PBKDF2 hashing algorithm
+    if table_name == "users":
+        password_hash = make_password(request.data.get('password_hash'))
+        data["password_hash"] = password_hash
+    
+    #Insert data into Supabase DB
+    response = supabase.table(table_name).insert(data).execute()
+
+    #If the insert was successful, return Object to React
+    if response.data:
+        user = response.data[0]
+        return Response(user, status=status.HTTP_201_CREATED)
+    #Else return error to React
+    else:
+        return Response(response.error, status=status.HTTP_400_BAD_REQUEST)
+
+
+#Database Primary Key dictionary
+primary_key_dict = {
+    "users": "user_id",
+    "courses": "course_id",
+    "applications": "application_id",
+    "assignments": "assignment_id",
+    "notifications": "notification_id",
+    "reviews": "review_id"
+}
+
+@api_view(['GET'])
+def retrieve(request):                  #Get a list of all Objects from DB
+    table_name = "users"
+    #Set the Primary key depending on the table_name selected to sort the results in ascending order
+    primary_key = primary_key_dict.get(table_name, 'id')
+
+    #Pull Objects from Supabase DB in ascending order
+    result = supabase.table(table_name).select("*").order(primary_key, desc=False).execute()
+    
+    if result.data:
+        objects = result.data
+        return Response(objects, status=status.HTTP_200_OK)
+    else:
+        print("No Users")
+        return Response(None, status=status.HTTP_404_NOT_FOUND)
+    
+
+def get_objects(request, table_name):                  #Get a list of all Objects from DB
+    #Set the Primary key depending on the table_name selected to sort the results in ascending order
+    primary_key = primary_key_dict.get(table_name, 'id')
+
+    #Pull Objects from Supabase DB in ascending order
+    result = supabase.table(table_name).select("*").order(primary_key, desc=False).execute()
+    
+    if result.data:
+        objects = result.data
+        return Response(objects, status=status.HTTP_200_OK)
+    else:
+        print("No Users")
+        return Response(None, status=status.HTTP_404_NOT_FOUND)
+
+
+def object_info(request, table_name, object_id):       #Get/Edit/Delete a single Objject
+    primary_key = primary_key_dict.get(table_name, 'id')
+
+    response = supabase.table(table_name).select('*').eq(primary_key, object_id).execute()
+
+    if response.data:
+        object = response.data[0]
+    else:
+        print("HELP")
+        return Response("Object not found", status=status.HTTP_404_NOT_FOUND)
+    
+    #Get user information
+    if request.method == 'GET':
+        return Response(object, status=status.HTTP_200_OK)
+    
+    #Edit user information with newly provided data 
+    elif request.method == 'PUT':
+        updated_data = request.data
+
+        try:
+            update_response = supabase.table(table_name).update(updated_data).eq(primary_key, object_id).execute()
+
+            if update_response.data:
+                return Response(update_response.data[0], status=status.HTTP_200_OK)
+            else:
+                return Response("Failed to update object", status=status.HTTP_400_BAD_REQUEST)
+            
+        except Exception as e:
+            return Response({"detail": f"An error occured during update: {str(e)}"}, status=status.HTTP_400_BAD_REQUEST)
+    
+    #Delete user
+    elif request.method == 'DELETE':
+        try:
+            delete_response = supabase.table(table_name).delete().eq(primary_key, object_id).execute()
+
+            if delete_response.data:
+                return Response("Object successfully deleted", status=status.HTTP_204_NO_CONTENT)
+            else:
+                return Response("Failed to delete object", status=status.HTTP_400_BAD_REQUEST)
+            
+        except Exception as e:
+            return Response({"detail": f"An error occurred during deletion: {str(e)}"}, status=status.HTTP_400_BAD_REQUEST)
+
+
+#TODO: User
+#-------------------------------------------------------------------------------
+@api_view(['POST'])
+def create_user(request):
+    return create_object(request, 'users')
+
+@api_view(['GET'])
+def get_users(request):
+    return get_objects(request, 'users')
+
+@api_view(['GET', 'PUT', 'DELETE'])
+def user_info(request, user_id):
+    return object_info(request, 'users', user_id)
+
+
+#TODO: Course
+#-------------------------------------------------------------------------------
+@api_view(['POST'])
+def create_course(request):
+    return create_object(request, 'courses')
+
+@api_view(['GET'])
+def get_courses(request):
+    return get_objects(request, 'courses')
+
+@api_view(['GET', 'PUT', 'DELETE'])
+def course_info(request, course_id):
+    return object_info(request, 'courses', course_id)
+
+
+#TODO: Application
+#-------------------------------------------------------------------------------
+@api_view(['POST'])
+def create_application(request):
+    return create_object(request, 'applications')
+
+@api_view(['GET'])
+def get_applications(request):
+    return get_objects(request, 'applications')
+
+@api_view(['GET', 'PUT', 'DELETE'])
+def application_info(request, application_id):
+    return object_info(request, 'applications', application_id)
+
+
+#TODO: Assignment
+#-------------------------------------------------------------------------------
+@api_view(['POST'])
+def create_assignment(request):
+    return create_object(request, 'assignments')
+
+@api_view(['GET'])
+def get_assignments(request):
+    return get_objects(request, 'assignments')
+
+@api_view(['GET', 'PUT', 'DELETE'])
+def assignment_info(request, assignment_id):
+    return object_info(request, 'assignments', assignment_id)
+
+
+#TODO: Notification
+#-------------------------------------------------------------------------------
+@api_view(['POST'])
+def create_notification(request):
+    return create_object(request, 'notifications')
+
+@api_view(['GET'])
+def get_notifications(request):
+    return get_objects(request, 'notifications')
+
+@api_view(['GET', 'PUT', 'DELETE'])
+def notification_info(request, notification_id):
+    return object_info(request, 'notifications', notification_id)
+
+
+#TODO: Review
+#-------------------------------------------------------------------------------
+@api_view(['POST'])
+def create_review(request):
+    return create_object(request, 'reviews')
+
+@api_view(['GET'])
+def get_reviews(request):
+    return get_objects(request, 'reviews')
+
+@api_view(['GET', 'PUT', 'DELETE'])
+def review_info(request, review_id):
+    return object_info(request, 'reviews', review_id)
+
+
+
+
+
+# @api_view(['POST'])
+# def register(request):                #Create a new Object from data provided
+#     #Store data from React into variables
+#     username = request.data.get('username')
+#     email = request.data.get('email')
+#     password = request.data.get('password_hash')
+#     role = request.data.get('role')
+
+#     #Hash password (Uses Django's built-in PBKDF2 hashing algorithm)
+#     password_hash = make_password(password)
+
+#     if not username or not email or not password or not role:
+#         return Response({"error": "All fields are required"}, status=status.HTTP_400_BAD_REQUEST)
+    
+#     #Insert new user data into DB
+#     response = supabase.table('users').insert({
+#         "username": username, 
+#         "password_hash": password_hash, 
+#         "role": role, 
+#         "email": email
+#     }).execute()
+
+#     #If the data provided is valid, return User object and OK response
+#     if response.data:  # If insert is successful
+#         user = response.data[0]
+#         return Response(user, status=status.HTTP_201_CREATED)
+#     else:
+#         return Response(response.error, status=status.HTTP_400_BAD_REQUEST)
+
+'''
 #TODO: Modular Functions
 #-------------------------------------------------------------------------------
 def create_object(request, model, serializer_class):                #Create a new Object from data provided
@@ -12,9 +285,7 @@ def create_object(request, model, serializer_class):                #Create a ne
     serializer = serializer_class(data=request.data)
 
     #If the data provided is valid, save the data to the DB
-    print("Checking if serializer is valid...")
     if serializer.is_valid():
-        print("Serializer is valid!")
         serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
     
@@ -22,7 +293,7 @@ def create_object(request, model, serializer_class):                #Create a ne
 
 
 def get_objects(request, model, serializer_class):                  #Get a list of all Users and their attributes from DB
-    #Get all users and their attributes from DB
+    #Get all objects and their attributes from DB
     objects = model.objects.all()
 
     # Serialize the user data
@@ -145,7 +416,7 @@ def get_reviews(request):
 @api_view(['GET', 'PUT', 'DELETE'])
 def review_info(request, review_id):
     return object_info(request, Review, ReviewSerializer, review_id, pk_field='review_id')
-
+'''
 
 '''
 #TODO: User
