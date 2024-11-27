@@ -1,10 +1,12 @@
 
 import React, { useState } from 'react';
 import Login from './components/login';
+import Register from './components/register'
 import TA from './components/TA'
 import Admin from './components/admin'
 import Committee from './components/committee'
 import Instructor from './components/instructor'
+import Card from './components/Cardloop'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
@@ -13,50 +15,46 @@ function App() {
     const [currentForm, setCurrentForm] = useState('login');
 
     const renderForm = () => {
-      if (sessionStorage.getItem("userType") === "TA"){
+      if (sessionStorage.getItem("role") === "TA Applicant"){
         setCurrentForm("TA")
       }
-      else if (sessionStorage.getItem("userType") === "admin"){
+      else if (sessionStorage.getItem("role") === "Administrator"){
         setCurrentForm("admin")
       }
-      else if (sessionStorage.getItem("userType") === "committee"){
+      else if (sessionStorage.getItem("role") === "TA Committee Member"){
         setCurrentForm("committee")
       }
-      else if (sessionStorage.getItem("userType") === "instructor"){
+      else if (sessionStorage.getItem("role") === "Instructor"){
         setCurrentForm("instructor")
       }
 
       switch(currentForm) {
         case 'login':
-          return (
-            <Login />
-          );
+          return (<Login />);
+        case 'register':
+          return (<Register />);
         case 'TA':
-          return (
-            <TA />
-          );
+          return (<TA />);
         case 'admin':
-          return (
-            <Admin />
-          );
+          return (<Admin />);
         case 'committee':
-          return (
-            <Committee />
-          );
+          return (<Committee />);
         case 'instructor':
-          return (
-            <Instructor />
-          );
+          return (<Instructor />);
+        case 'card':
+          return (<Card />);
         default:
           return null
       }
     };
     const formComponents = {
       login: <Login onFormSwitch={renderForm} />,
+      register: <Register onFormSwitch={renderForm} />,
       TA: <TA onFormSwitch={renderForm} />,
       admin: <Admin onFormSwitch={renderForm} />,
       committee: <Committee onFormSwitch={renderForm} />,
-      instructor: <Instructor onFormSwitch={renderForm} />
+      instructor: <Instructor onFormSwitch={renderForm} />,
+      card: <Card onFormSwitch={renderForm} />
     };
 
   return (
@@ -79,6 +77,9 @@ function App() {
                 <button onClick={() => setCurrentForm('login')} className={currentForm === 'login' ? 'active' : ''}>
                   Login
                 </button>
+                <button onClick={() => setCurrentForm('register')} className={currentForm === 'register' ? 'active' : ''}>
+                  Register
+                </button>
                 <button onClick={() => setCurrentForm('TA')} className={currentForm === 'TA' ? 'active' : ''}>
                   TA
                 </button>
@@ -90,6 +91,9 @@ function App() {
                 </button>
                 <button onClick={() => setCurrentForm('instructor')} className={currentForm === 'instructor' ? 'active' : ''}>
                   Instructor
+                </button>
+                <button onClick={() => setCurrentForm('card')} className={currentForm === 'card' ? 'active' : ''}>
+                  Card
                 </button>
             </div>
           </div>
