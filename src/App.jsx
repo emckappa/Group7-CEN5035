@@ -80,7 +80,7 @@ function App() {
                 <button onClick={() => setCurrentForm('register')} className={currentForm === 'register' ? 'active' : ''}>
                   Register
                 </button>
-                <button onClick={() => setCurrentForm('TA')} className={currentForm === 'TA' ? 'active' : ''}>
+                {/* <button onClick={() => setCurrentForm('TA')} className={currentForm === 'TA' ? 'active' : ''}>
                   TA
                 </button>
                 <button onClick={() => setCurrentForm('admin')} className={currentForm === 'admin' ? 'active' : ''}>
@@ -94,7 +94,7 @@ function App() {
                 </button>
                 <button onClick={() => setCurrentForm('card')} className={currentForm === 'card' ? 'active' : ''}>
                   Card
-                </button>
+                </button> */}
             </div>
           </div>
           <div className="row justify-content-center">
