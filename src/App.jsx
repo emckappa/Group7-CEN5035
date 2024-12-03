@@ -10,6 +10,13 @@ import Card from './components/Cardloop'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+
+const Home = () => <h1>Home Page</h1>;
+const Features = () => <h1>Features Page</h1>;
+const ManageUsers = () => <h1>Manage Users</h1>;
+const AssignTAs = () => <h1>Assign TAs</h1>;
+const ReviewApplications = () => <h1>Review Applications</h1>;
 
 function App() {
     const [currentForm, setCurrentForm] = useState('login');
@@ -105,6 +112,8 @@ function App() {
         </div>
       </div>
     </div>  
+
+    
   )
 }
 

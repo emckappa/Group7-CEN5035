@@ -29,14 +29,14 @@ const header = () => {
             <img src="https://e7.pngegg.com/pngimages/716/738/png-clipart-silhouette-male-person-silhouette-animals-head-thumbnail.png" alt="mdo" width="32" height="32" className="rounded-circle"/>
         </a>
 
-        <ul className="dropdown-menu text-small grey-text">  
+        {/* <ul className="dropdown-menu text-small grey-text">  
 
-            {/* <li><a className="dropdown-item" href="#">New project...</a></li> */}
+            <li><a className="dropdown-item" href="#">New project...</a></li>
             <li><a className="dropdown-item" href="/settings">Settings</a></li>
             <li><a className="dropdown-item" href="/profile">Profile</a></li>
             <li><hr className="dropdown-divider" /></li>
             <li><a className="dropdown-item" href="/signout">Sign out</a></li>
-        </ul>
+        </ul> */}
         </div>
     </div>
     </div>

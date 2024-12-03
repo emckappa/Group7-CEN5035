@@ -38,7 +38,7 @@ const TAApplicationForm = ({ addApplicant }) => {
     <form onSubmit={handleSubmit} style={{ padding: '20px', border: '1px solid #ccc', borderRadius: '10px' }}>
       <h3>TA Application Form</h3>
       <label>
-        <strong>Name:</strong>
+        <strong>Name:  </strong>
         <input
           type="text"
           name="name"
@@ -50,7 +50,7 @@ const TAApplicationForm = ({ addApplicant }) => {
       </label>
       <br />
       <label>
-        <strong>Email:</strong>
+        <strong>Email:  </strong>
         <input
           type="email"
           name="email"
@@ -62,7 +62,7 @@ const TAApplicationForm = ({ addApplicant }) => {
       </label>
       <br />
       <label>
-        <strong>Major:</strong>
+        <strong>Major: </strong>
         <input
           type="text"
           name="major"
@@ -74,7 +74,7 @@ const TAApplicationForm = ({ addApplicant }) => {
       </label>
       <br />
       <label>
-        <strong>GPA:</strong>
+        <strong>GPA: </strong>
         <input
           type="number"
           name="gpa"
