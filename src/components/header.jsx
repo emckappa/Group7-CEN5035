@@ -20,14 +20,14 @@ const header = () => {
         <li><a href="/jobposting" className="nav-link px-2 link-body-emphasis">Job Posting</a></li> */}
         </ul>
 
-        <form className="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
+        {/* <form className="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
         <input type="search" className="form-control" placeholder="Search..." aria-label="Search" />
-        </form>
+        </form> */}
 
         <div className="dropdown text-end">
-        <a href="#" className="d-block link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+        {/* <a href="#" className="d-block link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
             <img src="https://e7.pngegg.com/pngimages/716/738/png-clipart-silhouette-male-person-silhouette-animals-head-thumbnail.png" alt="mdo" width="32" height="32" className="rounded-circle"/>
-        </a>
+        </a> */}
 
         {/* <ul className="dropdown-menu text-small grey-text">  
 

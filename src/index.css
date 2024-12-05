@@ -97,3 +97,36 @@ header.main-background-color a:hover {
     visibility: visible;
     opacity: 1;
 }
+
+
+/* Sidebar */
+.sidebar {
+  width: 200px; /* Width of the sidebar */
+  background-color: #ffffff;
+  color: #003366;
+  padding: 20px;
+  position: fixed; /* Sidebar stays on the left side */
+  height: 100%;
+  left: 0;
+  align-items: flex-start; /* Align buttons to the left */
+}
+
+.sidebar button {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 10px;
+  background-color: #003366;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+  text-align: left; /* Align text to the left */
+}
+
+.sidebar button.active {
+  background-color: #4d6c8d; /* Blue color for active button */
+}
+
+.sidebar button:hover {
+  background-color: #4D4C55;
+}

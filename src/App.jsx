@@ -9,22 +9,18 @@ import Card from './components/Cardloop'
 import { useAuth0 } from '@auth0/auth0-react';
 import AuthButtons from './components/AuthButtons';
 import Profile from './components/Profile';
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-
-
-const Home = () => <h1>Home Page</h1>;
-const Features = () => <h1>Features Page</h1>;
-const ManageUsers = () => <h1>Manage Users</h1>;
-const AssignTAs = () => <h1>Assign TAs</h1>;
-const ReviewApplications = () => <h1>Review Applications</h1>;
-
 
 function App() {
   const [currentForm, setCurrentForm] = useState('login');
   const { isAuthenticated } = useAuth0();
+
+  // Function to switch between sections in the sidebar
+  const handleSectionSwitch = (section) => {
+    setCurrentSection(section);
+  };
+
+  const [currentSection, setCurrentSection] = useState('courses'); // Default section is 'courses'
 
   const renderForm = () => {
     if (sessionStorage.getItem("role") === "TA Applicant"){
@@ -73,6 +69,7 @@ function App() {
   const renderButtons = () => {
     if (sessionStorage.getItem("role")){
       return(
+        
         <div className="row justify-content-center">
           <div className="button-group blue-button-group col-md-8">
               <button onClick={() => setCurrentForm('TA')} className={currentForm === 'TA' ? 'active' : ''}>
@@ -115,7 +112,8 @@ function App() {
     
   return (
     <div className="container-fluid">
-
+      {/* Sidebar on the left */}
+      
       <div className="page-title align-items-center justify-content-center container-fluid">
         <div className="row align-items-center">
           <div className="col-md-12">
