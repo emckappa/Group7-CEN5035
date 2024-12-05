@@ -134,29 +134,23 @@ function App() {
 
           <div className="row justify-content-center">
             <div className="col-md-8">
+              
               {formComponents[currentForm] || <Login onFormSwitch={renderForm} />}
-            </div>
-
-            <div>
+              <div>
               {! sessionStorage.getItem("role") && currentForm != "register" ? (
-                <div className='App text-center bg-white'>
-                  <header>
-                    <h1>Log-in with MFA</h1>
-                  </header>
-
-                  <div>
-                    <AuthButtons /> 
-                    
-                    {isAuthenticated ? (
-                      <Profile /> /* Display Profile component if user is authenticated */
-                    ) : (
-                      <p>Use built-in Auth0 for logging-in</p>
-                    )}
-                  </div>
+              <div>
+              {!sessionStorage.getItem("role") && currentForm !== "register" && (
+                <div>
+                  <AuthButtons /> 
+                  {isAuthenticated && <Profile />}  {/* Only render Profile if authenticated */}
+                
                 </div>
+              )}
+              </div>
               ) : ''}
+              </div>
             </div>
-          </div>
+            </div>
         </div>
       </div>
 
