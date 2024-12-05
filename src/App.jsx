@@ -7,6 +7,9 @@ import Admin from './components/admin'
 import Committee from './components/committee'
 import Instructor from './components/instructor'
 import Card from './components/Cardloop'
+import { useAuth0 } from '@auth0/auth0-react';
+import AuthButtons from './components/AuthButtons';
+import Profile from './components/Profile';
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
@@ -18,8 +21,11 @@ const ManageUsers = () => <h1>Manage Users</h1>;
 const AssignTAs = () => <h1>Assign TAs</h1>;
 const ReviewApplications = () => <h1>Review Applications</h1>;
 
+
+
 function App() {
     const [currentForm, setCurrentForm] = useState('login');
+    const { isAuthenticated } = useAuth0();
 
     const renderForm = () => {
       if (sessionStorage.getItem("role") === "TA Applicant"){
@@ -64,6 +70,7 @@ function App() {
       card: <Card onFormSwitch={renderForm} />
     };
 
+    
   return (
     
     <div className="container-fluid">
@@ -108,7 +115,22 @@ function App() {
             <div className="col-md-8">
               {formComponents[currentForm] || <Login onFormSwitch={renderForm} />}
             </div>
+            <div className='App text-center bg-white'>
+            <header>
+              <h1>Log-in with MFA</h1>
+            </header>
+
+            <div>
+              <AuthButtons /> {/* Shows Log In/Log Out button based on authentication status */}
+              
+              {isAuthenticated ? (
+                <Profile /> /* Display Profile component if user is authenticated */
+              ) : (
+                <p>Use built-in Auth0 for logging-in</p>
+              )}
+            </div>
           </div>
+                </div>
         </div>
       </div>
     </div>  

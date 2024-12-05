@@ -2,13 +2,13 @@ import React, { useState } from "react";
 import { Navbar, Nav, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
-const RoleBasedNavbar = () => {
+const Dashboard = () => {
   const [userRole, setUserRole] = useState("committee"); // Change for testing
   const navigate = useNavigate();
 
   return (
     <Navbar bg="light" variant="light" className="flex-column" style={{ width: "250px" }}>
-      <Navbar.Brand href="#">My App</Navbar.Brand>
+      <Navbar.Brand href="#">TA System Application</Navbar.Brand>
       <Nav className="flex-column">
         <Nav.Link onClick={() => navigate("/")}>Home</Nav.Link>
         <Nav.Link onClick={() => navigate("/features")}>Features</Nav.Link>
@@ -70,4 +70,4 @@ const RoleBasedNavbar = () => {
   );
 };
 
-export default RoleBasedNavbar;
+export default Dashboard;
