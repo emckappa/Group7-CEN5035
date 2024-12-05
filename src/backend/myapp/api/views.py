@@ -18,7 +18,7 @@ supabase: Client = create_client(url, key)
 #TODO: Login
 #-------------------------------------------------------------------------------
 @api_view(['POST'])
-def login_user(request):
+def login_user(request):                                        #User login
     email = request.data.get('email')
     password = request.data.get('password')
     
@@ -29,22 +29,23 @@ def login_user(request):
         user = result.data[0]
         password_hash = user['password_hash']
         
-        #Check user password with hashed password in DB; Match -> Logged in / Not match -> Error
+        #If password matches hashed password in DB, return User object
         if check_password(password, password_hash):
             print("Login successful")
             return Response(user, status=status.HTTP_200_OK)
+        #Else, return error to React
         else:
             print("Wrong password")
-            return Response({'message': 'Invalid credentials'}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({'error': 'Invalid credentials'}, status=status.HTTP_400_BAD_REQUEST)
         
     else:
         print("User not found.")
-        return Response(None, status=status.HTTP_404_NOT_FOUND)
+        return Response({"error": "User not found"}, status=status.HTTP_404_NOT_FOUND)
 
 
 #TODO: Modular Functions
 #-------------------------------------------------------------------------------
-def create_object(request, table_name):                #Create a new Object from data provided
+def create_object(request, table_name):                         #Create a new Object from data provided
     #Create a data object of data besides the table_name to be inserted into DB
     data = {key: value for key,value in request.data.items() if key != 'table_name'}
 
@@ -58,15 +59,15 @@ def create_object(request, table_name):                #Create a new Object from
         data["password_hash"] = password_hash
     
     #Insert data into Supabase DB
-    response = supabase.table(table_name).insert(data).execute()
+    result = supabase.table(table_name).insert(data).execute()
 
     #If the insert was successful, return Object to React
-    if response.data:
-        user = response.data[0]
-        return Response(user, status=status.HTTP_201_CREATED)
-    #Else return error to React
+    if result.data:
+        object = result.data[0]
+        return Response(object, status=status.HTTP_201_CREATED)
+    #Else, return error to React
     else:
-        return Response(response.error, status=status.HTTP_400_BAD_REQUEST)
+        return Response({"error": "Insert failed"}, status=status.HTTP_400_BAD_REQUEST)
 
 
 #Database Primary Key dictionary
@@ -79,80 +80,76 @@ primary_key_dict = {
     "reviews": "review_id"
 }
 
-@api_view(['GET'])
-def retrieve(request):                  #Get a list of all Objects from DB
-    table_name = "users"
-    #Set the Primary key depending on the table_name selected to sort the results in ascending order
+
+def get_objects(request, table_name):                           #Get a list of all Objects from DB
+    #Set primary key to the correct table in Supabase DB
     primary_key = primary_key_dict.get(table_name, 'id')
 
-    #Pull Objects from Supabase DB in ascending order
+    #Pull Objects from Supabase DB and sort in ascending order by primary key
     result = supabase.table(table_name).select("*").order(primary_key, desc=False).execute()
     
+    #If valid Objects, return Object to React
     if result.data:
         objects = result.data
         return Response(objects, status=status.HTTP_200_OK)
+    #Else, return error to React
     else:
-        print("No Users")
-        return Response(None, status=status.HTTP_404_NOT_FOUND)
-    
+        print("Objects not found")
+        return Response({"error": "Objects not found"}, status=status.HTTP_404_NOT_FOUND)
 
-def get_objects(request, table_name):                  #Get a list of all Objects from DB
-    #Set the Primary key depending on the table_name selected to sort the results in ascending order
+
+def object_info(request, table_name, object_id):                #Get/Edit/Delete a single Object
+    #Set primary key to the correct table in Supabase DB
     primary_key = primary_key_dict.get(table_name, 'id')
 
-    #Pull Objects from Supabase DB in ascending order
-    result = supabase.table(table_name).select("*").order(primary_key, desc=False).execute()
-    
+    #Pull Object from Supabase DB
+    result = supabase.table(table_name).select('*').eq(primary_key, object_id).execute()
+
+    #If valid Object, return Object to React
     if result.data:
-        objects = result.data
-        return Response(objects, status=status.HTTP_200_OK)
+        object = result.data[0]
+    #Else, return error to React
     else:
-        print("No Users")
-        return Response(None, status=status.HTTP_404_NOT_FOUND)
-
-
-def object_info(request, table_name, object_id):       #Get/Edit/Delete a single Objject
-    primary_key = primary_key_dict.get(table_name, 'id')
-
-    response = supabase.table(table_name).select('*').eq(primary_key, object_id).execute()
-
-    if response.data:
-        object = response.data[0]
-    else:
-        print("HELP")
-        return Response("Object not found", status=status.HTTP_404_NOT_FOUND)
+        print("Object not found")
+        return Response({"error": "Object not found"}, status=status.HTTP_404_NOT_FOUND)
     
-    #Get user information
+    #Get Object
     if request.method == 'GET':
         return Response(object, status=status.HTTP_200_OK)
     
-    #Edit user information with newly provided data 
+    #Update Object
     elif request.method == 'PUT':
         updated_data = request.data
 
         try:
+            #Update Object in Supabase DB with newly provided data
             update_response = supabase.table(table_name).update(updated_data).eq(primary_key, object_id).execute()
 
+            #If update was successful, return newly updated Object to React
             if update_response.data:
                 return Response(update_response.data[0], status=status.HTTP_200_OK)
+            #Else, return error to React
             else:
-                return Response("Failed to update object", status=status.HTTP_400_BAD_REQUEST)
+                return Response({"error": "Failed to update object"}, status=status.HTTP_400_BAD_REQUEST)
             
         except Exception as e:
-            return Response({"detail": f"An error occured during update: {str(e)}"}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({"error": f"An error occured during update: {str(e)}"}, status=status.HTTP_400_BAD_REQUEST)
     
-    #Delete user
+    #Delete Object
     elif request.method == 'DELETE':
         try:
+            #Delete Object in Supabase DB
             delete_response = supabase.table(table_name).delete().eq(primary_key, object_id).execute()
 
+            #If delete was successful, return OK message to React
             if delete_response.data:
-                return Response("Object successfully deleted", status=status.HTTP_204_NO_CONTENT)
+                return Response({"error": "Object successfully deleted"}, status=status.HTTP_204_NO_CONTENT)
+            #Else, return error to React
             else:
-                return Response("Failed to delete object", status=status.HTTP_400_BAD_REQUEST)
+                return Response({"error": "Failed to delete object"}, status=status.HTTP_400_BAD_REQUEST)
             
         except Exception as e:
-            return Response({"detail": f"An error occurred during deletion: {str(e)}"}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({"error": f"An error occurred during deletion: {str(e)}"}, status=status.HTTP_400_BAD_REQUEST)
 
 
 #TODO: User
@@ -247,6 +244,22 @@ def review_info(request, review_id):
 
 
 
+
+# @api_view(['GET'])
+# def retrieve(request):                  #Get a list of all Objects from DB
+#     table_name = "users"
+#     #Set the Primary key depending on the table_name selected to sort the results in ascending order
+#     primary_key = primary_key_dict.get(table_name, 'id')
+
+#     #Pull Objects from Supabase DB in ascending order
+#     result = supabase.table(table_name).select("*").order(primary_key, desc=False).execute()
+    
+#     if result.data:
+#         objects = result.data
+#         return Response(objects, status=status.HTTP_200_OK)
+#     else:
+#         print("No Users")
+#         return Response(None, status=status.HTTP_404_NOT_FOUND)
 
 # @api_view(['POST'])
 # def register(request):                #Create a new Object from data provided
