@@ -4,10 +4,16 @@ import AdminAddCourseForm from '/src/components/AdminAddCourseForm';
 import ExistingCoursesAdmin from '/src/components/ExistingCoursesAdmin';
 import AdminApplicationViewer from '/src/components/AdminApplicationViewer';
 import AdminCoursesViewer from '/src/components/AdminCoursesViewer';
+import Sidebar from './Sidebar';
 
 export default props => {
+
+  const [activeSection, setActiveSection] = useState(null);
+
   return (
+  
   <div>
+    <Sidebar activeSection={activeSection} setActiveSection={setActiveSection} />
     <h2>TA Admin Page</h2>
     <p>Admin role will be able to view existing courses, add new courses, and recommend available TAs for open courses</p>
     <p>TODO: Add existing courses, add course, and unassigned applicants</p>
