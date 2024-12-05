@@ -1,14 +1,17 @@
 import React, { useState } from "react";
+import { supabase } from "/src/utilities/supabaseClient"; // Ensure your Supabase client is set up correctly
 
-const AddCourseForm = () => {
+const AdminAddCourseForm = () => {
   // State to manage form inputs
   const [formData, setFormData] = useState({
-    courseName: "",
     courseCode: "",
-    instructor: "",
-    duration: "",
-    description: "",
+    courseName: "",
+    term: "",
+    year: "",
   });
+
+  // State for success or error messages
+  const [message, setMessage] = useState("");
 
   // Handle input change
   const handleChange = (e) => {
@@ -20,36 +23,46 @@ const AddCourseForm = () => {
   };
 
   // Handle form submission
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle form submission logic (e.g., API call)
-    console.log("Course Data Submitted:", formData);
-    // Reset the form
-    setFormData({
-      courseName: "",
-      courseCode: "",
-      instructor: "",
-      duration: "",
-      description: "",
-    });
+    setMessage(""); // Clear any previous messages
+
+    try {
+      const { data, error } = await supabase
+        .from("courses") // Replace with your actual table name
+        .insert([
+          {
+            course_code: formData.courseCode,
+            course_name: formData.courseName,
+            term: formData.term,
+            year: parseInt(formData.year), // Ensure the year is a number
+          },
+        ]);
+
+      if (error) throw error;
+
+      setMessage("Course added successfully!");
+      // Reset the form
+      setFormData({
+        courseCode: "",
+        courseName: "",
+        term: "",
+        year: "",
+      });
+    } catch (err) {
+      setMessage(`Error: ${err.message}`);
+    }
   };
 
   return (
     <div style={{ maxWidth: "500px", margin: "auto" }}>
       <h3>Add a New Course</h3>
+      {message && (
+        <p style={{ color: message.startsWith("Error") ? "red" : "green" }}>
+          {message}
+        </p>
+      )}
       <form onSubmit={handleSubmit}>
-        <div style={{ marginBottom: "10px" }}>
-          <label htmlFor="courseName">Course Name:</label>
-          <input
-            type="text"
-            id="courseName"
-            name="courseName"
-            value={formData.courseName}
-            onChange={handleChange}
-            required
-            style={{ width: "100%", padding: "8px" }}
-          />
-        </div>
         <div style={{ marginBottom: "10px" }}>
           <label htmlFor="courseCode">Course Code:</label>
           <input
@@ -63,37 +76,37 @@ const AddCourseForm = () => {
           />
         </div>
         <div style={{ marginBottom: "10px" }}>
-          <label htmlFor="instructor">Instructor:</label>
+          <label htmlFor="courseName">Course Name:</label>
           <input
             type="text"
-            id="instructor"
-            name="instructor"
-            value={formData.instructor}
+            id="courseName"
+            name="courseName"
+            value={formData.courseName}
             onChange={handleChange}
             required
             style={{ width: "100%", padding: "8px" }}
           />
         </div>
         <div style={{ marginBottom: "10px" }}>
-          <label htmlFor="duration">Duration (in weeks):</label>
+          <label htmlFor="term">Term:</label>
+          <input
+            type="text"
+            id="term"
+            name="term"
+            value={formData.term}
+            onChange={handleChange}
+            required
+            style={{ width: "100%", padding: "8px" }}
+          />
+        </div>
+        <div style={{ marginBottom: "10px" }}>
+          <label htmlFor="year">Year:</label>
           <input
             type="number"
-            id="duration"
-            name="duration"
-            value={formData.duration}
+            id="year"
+            name="year"
+            value={formData.year}
             onChange={handleChange}
-            required
-            style={{ width: "100%", padding: "8px" }}
-          />
-        </div>
-        <div style={{ marginBottom: "10px" }}>
-          <label htmlFor="description">Description:</label>
-          <textarea
-            id="description"
-            name="description"
-            value={formData.description}
-            onChange={handleChange}
-            rows="4"
             required
             style={{ width: "100%", padding: "8px" }}
           />
@@ -116,4 +129,4 @@ const AddCourseForm = () => {
   );
 };
 
-export default AddCourseForm;
+export default AdminAddCourseForm;

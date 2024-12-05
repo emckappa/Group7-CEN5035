@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import {Card, Container, Form, InputGroup} from 'react-bootstrap'
-import AddCourseForm from '/src/components/AddCourseForm';
+import AdminAddCourseForm from '/src/components/AdminAddCourseForm';
 import ExistingCoursesAdmin from '/src/components/ExistingCoursesAdmin';
+import AdminApplicationViewer from '/src/components/AdminApplicationViewer';
+import AdminCoursesViewer from '/src/components/AdminCoursesViewer';
 
 export default props => {
   return (
@@ -11,7 +13,7 @@ export default props => {
     <p>TODO: Add existing courses, add course, and unassigned applicants</p>
      
     <div>
-      <h2>Existing Courses</h2>
+      <h2>Existing Courses Demo List</h2>
       <p>Click to view list of existing courses and status.</p>
       <ExistingCoursesAdmin />
     </div>
@@ -19,7 +21,17 @@ export default props => {
       <h2>Course Entry</h2>
       <p>Use the below form to instert new courses. </p>
       <p>TODO: Update form to match course requirements. </p>
-      <AddCourseForm />
+      <AdminAddCourseForm />
+    </div>
+    <div>
+      <h2>Courses from Database</h2>
+      <p>Courses pulled from database on load</p>
+      <AdminCoursesViewer />
+    </div>
+      <div>
+      <h2>Pending applications</h2>
+      <p></p>
+      <AdminApplicationViewer />
     </div>
     <div style={{margin: "auto" }}>
       <h2>Available TAs</h2>
