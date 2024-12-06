@@ -112,8 +112,8 @@ const Sidebar = ({ activeSection, setActiveSection, role }) => {
               Records
             </button>
             <button
-              onClick={() => handleButtonClick('Selections')}
-              className={activeSection === 'selections' ? 'active' : ''}
+              onClick={() => handleButtonClick('selection')}
+              className={activeSection === 'selection' ? 'active' : ''}
             >
               Selections
             </button>

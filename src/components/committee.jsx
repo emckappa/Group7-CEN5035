@@ -3,7 +3,7 @@ import Sidebar from './Sidebar'; // Import Sidebar component
 import ComRecommendation from '../usercomp/committee/ComRecommend';
 import SubmittedRecommendation from '../usercomp/admin/SubmittedRecommendation';
 import RecordsTable from '../usercomp/admin/AdminRecord';
-import ComSelection from '../usercomp/committee/ComSelection';
+import Selection from '../usercomp/committee/ComSelection';
 import ApplicationViewer from '../usercomp/admin/ApplicationViewer';
 
 // import Records from './Records';
@@ -155,7 +155,7 @@ const Committee = () => {
         {activeSection === 'applications' && <ApplicationViewer />}
         {activeSection === 'recommendations' && <ComRecommendation />}
         {activeSection === 'records' && <RecordsTable />}
-        {activeSection === 'selections' && <ComSelection />}
+        {activeSection === 'selection' && <Selection />}
       </div>
     </div>
   );

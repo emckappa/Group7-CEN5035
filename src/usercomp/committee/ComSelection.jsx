@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
-const ComSelection = () => {
-  // Static list of TA applicants and courses
+const Selection = () => {
+  // Static list of TA applicants
   const taList = [
     { id: 1, name: "Applicant One" },
     { id: 2, name: "Bob Smith" },
@@ -9,80 +9,120 @@ const ComSelection = () => {
     { id: 4, name: "Diana Lee" },
   ];
 
-  const courseList = [
-    { id: 1, courseName: "CS500", term: "Summer 2024" },
-    { id: 2, courseName: "COP 5616", term: "Fall 2024" },
-    { id: 3, courseName: "CAP 5771", term: "Summer 2024" },
+  // Static list of courses
+  const courses = [
+    { id: 1, name: "CS500" },
+    { id: 2, name: "CAP5120" }, // duplicate course
+    { id: 3, name: "COP3530" },
   ];
 
-  // State to store the selected TA for each course
-  const [selections, setSelections] = useState(
-    courseList.map((course) => ({ ...course, selectedTA: null }))
-  );
+  // State for selected course and TA
+  const [selectedCourse, setSelectedCourse] = useState(null);
+  const [selectedTA, setSelectedTA] = useState(null);
+  const [confirmationMessage, setConfirmationMessage] = useState(null);
+
+  // Handle course selection
+  const handleCourseSelection = (courseId) => {
+    setSelectedCourse(courseId);
+    setSelectedTA(null); // Reset TA selection on course change
+    setConfirmationMessage(null); // Reset confirmation message
+  };
 
   // Handle TA selection
-  const handleSelection = (courseId, taId) => {
-    setSelections((prevSelections) =>
-      prevSelections.map((selection) =>
-        selection.id === courseId
-          ? { ...selection, selectedTA: taList.find((ta) => ta.id === taId).name }
-          : selection
-      )
+  const handleTASelection = (taId) => {
+    const selected = taList.find((ta) => ta.id === taId);
+    setSelectedTA(selected);
+  };
+
+  // Confirm the selection
+  const handleConfirm = () => {
+    setConfirmationMessage(
+      `${selectedTA.name} has been selected as the TA for ${courses.find(
+        (course) => course.id === selectedCourse
+      ).name}.`
     );
+  };
+
+  // Cancel the selection
+  const handleCancel = () => {
+    setSelectedCourse(null);
+    setSelectedTA(null);
+    setConfirmationMessage(null);
   };
 
   return (
     <div>
-      <h2>TA Selection for Courses</h2>
-      <table border="1" cellPadding="10" style={{ width: "100%", borderCollapse: "collapse" }}>
-        <thead>
-          <tr>
-            <th>Course</th>
-            <th>Term</th>
-            <th>Select TA</th>
-            <th>Selected TA</th>
-          </tr>
-        </thead>
-        <tbody>
-          {selections.map((course) => (
-            <tr key={course.id}>
-              <td>{course.courseName}</td>
-              <td>{course.term}</td>
-              <td>
-                <select
-                  onChange={(e) =>
-                    handleSelection(course.id, parseInt(e.target.value, 10))
-                  }
-                  value={course.selectedTA ? taList.find((ta) => ta.name === course.selectedTA).id : ""}
-                >
-                  <option value="" disabled>
-                    Select a TA
-                  </option>
-                  {taList.map((ta) => (
-                    <option key={ta.id} value={ta.id}>
-                      {ta.name}
-                    </option>
-                  ))}
-                </select>
-              </td>
-              <td>{course.selectedTA || "Not selected"}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <h2>Select a Course and TA</h2>
 
-      <h3 style={{ marginTop: "20px" }}>Notifications</h3>
-      <ul>
-        {selections
-          .filter((course) => course.selectedTA)
-          .map((course) => (
-            <li key={course.id}>
-              {course.selectedTA} has been notified about their selection for {course.courseName} ({course.term}).
-            </li>
-          ))}
-      </ul>
+      {/* Course selection dropdown */}
+      <select
+        onChange={(e) => handleCourseSelection(parseInt(e.target.value, 10))}
+        value={selectedCourse || ""}
+      >
+        <option value="" disabled>Select a Course</option>
+        {courses.map((course) => (
+          <option key={course.id} value={course.id}>
+            {course.name}
+          </option>
+        ))}
+      </select>
+
+      {/* TA selection dropdown */}
+      {selectedCourse && (
+        <div style={{ marginTop: "20px" }}>
+          <select
+            onChange={(e) => handleTASelection(parseInt(e.target.value, 10))}
+            value={selectedTA ? selectedTA.id : ""}
+          >
+            <option value="" disabled>Select a TA</option>
+            {taList.map((ta) => (
+              <option key={ta.id} value={ta.id}>
+                {ta.name}
+              </option>
+            ))}
+          </select>
+        </div>
+      )}
+
+      {/* Confirm and Cancel buttons */}
+      {selectedTA && (
+        <div style={{ marginTop: "20px" }}>
+          <button
+            onClick={handleConfirm}
+            style={{
+              backgroundColor: "green",
+              color: "white",
+              border: "none",
+              padding: "10px 20px",
+              marginRight: "10px",
+              cursor: "pointer",
+            }}
+          >
+            Confirm
+          </button>
+          <button
+            onClick={handleCancel}
+            style={{
+              backgroundColor: "red",
+              color: "white",
+              border: "none",
+              padding: "10px 20px",
+              cursor: "pointer",
+            }}
+          >
+            Cancel
+          </button>
+        </div>
+      )}
+
+      {/* Confirmation message */}
+      {confirmationMessage && (
+        <div style={{ marginTop: "20px", fontWeight: "bold", color: "green" }}>
+          <p>{confirmationMessage}</p>
+        </div>
+      )}
     </div>
   );
 };
 
-export default ComSelection;
+export default Selection;
