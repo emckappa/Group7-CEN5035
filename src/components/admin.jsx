@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import {Card, Container, Form, InputGroup} from 'react-bootstrap'
-import AdminAddCourseForm from '/src/components/AdminAddCourseForm';
-import ExistingCoursesAdmin from '/src/components/ExistingCoursesAdmin';
-import AdminApplicationViewer from '/src/components/AdminApplicationViewer';
-import AdminCoursesViewer from '/src/components/AdminCoursesViewer';
+import AdminAddCourseForm from '../usercomp/admin/AdminAddCourseForm';
+import ExistingCoursesAdmin from '../usercomp/admin/ExistingCoursesAdmin';
 import Sidebar from './Sidebar';
+import ApplicationViewer from '../usercomp/admin/ApplicationViewer';
 
 
 // export default props => {
@@ -127,6 +126,8 @@ import Sidebar from './Sidebar';
 //   </div>
 //   );
 // };
+//-----------------------------------------------------------------------------------------//
+
 
 const Admin = () => {
   const [activeSection, setActiveSection] = useState(null);  // State to track the active section
@@ -143,9 +144,9 @@ const Admin = () => {
 
       <div className="main-content">
         {/* Conditionally render components based on activeSection */}
-        {activeSection === 'courses' && <Courses />}
+        {activeSection === 'courses' && <AdminAddCourseForm />}
         {activeSection === 'assignments' && <Assignments />}
-        {activeSection === 'applicants' && <Applicants />}
+        {activeSection === 'applicants' && <ApplicationViewer />}
         {activeSection === 'status' && <Status />}
         {activeSection === 'recommendations' && <Recommendations />}
         {activeSection === 'notifications' && <Notifications />}
