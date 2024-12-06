@@ -1,5 +1,10 @@
 import React, { useState } from 'react';
 import Sidebar from './Sidebar'; // Import Sidebar component
+import ComRecommendation from '../usercomp/committee/ComRecommend';
+import SubmittedRecommendation from '../usercomp/admin/SubmittedRecommendation';
+import RecordsTable from '../usercomp/admin/AdminRecord';
+import ComSelection from '../usercomp/committee/ComSelection';
+
 // import Records from './Records';
 // import Status from './Status';
 
@@ -146,8 +151,9 @@ const Committee = () => {
 
       <div className="main-content">
         {/* Conditionally render components based on activeSection */}
-        {activeSection === 'records' && <Records />}
-        {activeSection === 'status' && <Status />}
+        {activeSection === 'recommendations' && <ComRecommendation />}
+        {activeSection === 'records' && <RecordsTable />}
+        {activeSection === 'selections' && <ComSelection />}
       </div>
     </div>
   );
