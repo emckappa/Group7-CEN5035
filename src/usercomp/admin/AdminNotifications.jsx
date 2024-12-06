@@ -10,16 +10,16 @@ const NotificationInbox = () => {
   const notifications = [
     {
       id: 1,
-      taName: "Alice Johnson",
-      course: "Course XYZ",
-      term: "Spring 2024",
+      taName: "Applicant One",
+      course: "CS500",
+      term: "Summer 2024",
       status: "Accepted",
       message: "Thank you for the opportunity! I’m excited to join.",
     },
     {
       id: 2,
       taName: "Bob Smith",
-      course: "Course ABC",
+      course: "COP 5616",
       term: "Fall 2024",
       status: "Declined",
       message: "Unfortunately, I have other commitments at this time.",
@@ -27,7 +27,7 @@ const NotificationInbox = () => {
     {
       id: 3,
       taName: "Charlie Brown",
-      course: "Course DEF",
+      course: "CAP 5771",
       term: "Summer 2024",
       status: "Accepted",
       message: "Looking forward to contributing to the course!",

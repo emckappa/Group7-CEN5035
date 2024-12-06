@@ -3,11 +3,11 @@ import React from "react";
 const RecordsTable = () => {
   // Static records of TA students and their statuses
   const records = [
-    { id: 1, name: "Alice Johnson", course: "Course XYZ", term: "Spring 2024", comment: "Highly recommended", status: "Accepted" },
-    { id: 2, name: "Bob Smith", course: "Course ABC", term: "Fall 2024", comment: "Average recommendation", status: "Pending" },
-    { id: 3, name: "Charlie Brown", course: "Course DEF", term: "Summer 2024", comment: "No recommendation", status: "Declined" },
+    { id: 1, name: "Applicant One", course: "CS500", term: "Summer 2024", comment: "Highly recommended", status: "Accepted" },
+    { id: 2, name: "Bob Smith", course: "COP 5616", term: "Fall 2024", comment: "Average recommendation", status: "Pending" },
+    { id: 3, name: "Charlie Brown", course: "CAP 5771", term: "Summer 2024", comment: "No recommendation", status: "Declined" },
     { id: 4, name: "Diana Lee", course: "Course GHI", term: "Winter 2024", comment: "Strong recommendation", status: "Accepted" },
-    { id: 5, name: "Ethan Harris", course: "Course JKL", term: "Spring 2024", comment: "Pending evaluation", status: "Pending" },
+    { id: 5, name: "Ethan Harris", course: "Course JKL", term: "Summer 2024", comment: "Pending evaluation", status: "Pending" },
   ];
 
   // Color code for statuses

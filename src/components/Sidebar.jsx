@@ -33,7 +33,7 @@ const Sidebar = ({ activeSection, setActiveSection, role }) => {
               onClick={() => handleButtonClick('applicants')}
               className={activeSection === 'applicants' ? 'active' : ''}
             >
-              Applicants
+              Applications
             </button>
             <button
               onClick={() => handleButtonClick('status')}
@@ -94,6 +94,12 @@ const Sidebar = ({ activeSection, setActiveSection, role }) => {
         return (
           <>
             <button
+              onClick={() => handleButtonClick('applications')}
+              className={activeSection === 'applications' ? 'active' : ''}
+            >
+              Applications
+            </button>
+            <button
               onClick={() => handleButtonClick('recommendations')}
               className={activeSection === 'recommendations' ? 'active' : ''}
             >
@@ -106,8 +112,8 @@ const Sidebar = ({ activeSection, setActiveSection, role }) => {
               Records
             </button>
             <button
-              onClick={() => handleButtonClick('Selections')}
-              className={activeSection === 'selections' ? 'active' : ''}
+              onClick={() => handleButtonClick('selection')}
+              className={activeSection === 'selection' ? 'active' : ''}
             >
               Selections
             </button>
