@@ -3,16 +3,16 @@ import React, { useState } from "react";
 const ComSelection = () => {
   // Static list of TA applicants and courses
   const taList = [
-    { id: 1, name: "Alice Johnson" },
+    { id: 1, name: "Applicant One" },
     { id: 2, name: "Bob Smith" },
     { id: 3, name: "Charlie Brown" },
     { id: 4, name: "Diana Lee" },
   ];
 
   const courseList = [
-    { id: 1, courseName: "Course XYZ", term: "Spring 2024" },
-    { id: 2, courseName: "Course ABC", term: "Fall 2024" },
-    { id: 3, courseName: "Course DEF", term: "Summer 2024" },
+    { id: 1, courseName: "CS500", term: "Summer 2024" },
+    { id: 2, courseName: "COP 5616", term: "Fall 2024" },
+    { id: 3, courseName: "CAP 5771", term: "Summer 2024" },
   ];
 
   // State to store the selected TA for each course

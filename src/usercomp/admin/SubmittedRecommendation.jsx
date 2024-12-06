@@ -3,9 +3,9 @@ import React from "react";
 const SubmittedRecommendation = () => {
   // Static list of TA students
   const taList = [
-    { id: 1, name: "Alice Johnson", course: "Course XYZ", term: "Spring 2024", comment: "Highly recommended" },
-    { id: 2, name: "Bob Smith", course: "Course ABC", term: "Fall 2024", comment: "Average recommendation" },
-    { id: 3, name: "Charlie Brown", course: "Course DEF", term: "Summer 2024", comment: "No recommendation" },
+    { id: 1, name: "Applicant One", course: "CS500", term: "Summer 2024", comment: "Highly recommended" },
+    { id: 2, name: "Bob Smith", course: "COP 5616", term: "Fall 2024", comment: "Average recommendation" },
+    { id: 3, name: "Charlie Brown", course: "CAP 5771", term: "Summer 2024", comment: "No recommendation" },
     { id: 4, name: "Diana Lee", course: "Course GHI", term: "Winter 2024", comment: "Strong recommendation" },
   ];
 

@@ -33,8 +33,8 @@ const ExistingCoursesAdmin = () => {
                 courseName: "COP 5615: Advanced Operating Systems",
                 description:
                   "An in-depth study of modern operating systems, covering distributed systems, concurrency, and security.",
-                semester: "Spring 2024",
-                instructor: "Dr. Alice Johnson",
+                semester: "Summer 2024",
+                instructor: "Dr. Applicant One",
                 tas: ["John Doe", "Jane Smith", "Michael Lee"],
               },
               {
