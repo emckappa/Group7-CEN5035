@@ -12,7 +12,24 @@ const ApplicationViewer = () => {
   const fetchApplications = async () => {
     try {
       const response = await axios.get('http://localhost:8000/api/applications/'); // Replace with your backend endpoint
-      setApplications(response.data); // Set data from backend
+      const application = response.data
+
+      const updateApps = await Promise.all(
+        application.map(async (application) => {
+          const [userResponse, courseResponse] = await Promise.all([
+            await axios.get(`http://localhost:8000/api/users/${application.applicant_id}`),
+            await axios.get(`http://localhost:8000/api/courses/${application.course_id}`)
+          ]);
+
+          return {
+            ... application,
+            applicant_id: userResponse.data.username,
+            course_id: courseResponse.data.course_code
+          };
+        })
+      );
+
+      setApplications(updateApps); // Set data from backend
     } catch (err) {
       console.error('Error fetching applications:', err);
       setError('Failed to fetch applications');
@@ -29,8 +46,8 @@ const ApplicationViewer = () => {
           <thead>
             <tr>
               <th>Application ID</th>
-              <th>Applicant ID</th>
-              <th>Course ID</th>
+              <th>Applicant</th>
+              <th>Course Code</th>
               <th>Status</th>
               <th>Submission Date</th>
               <th>CV Link</th>
