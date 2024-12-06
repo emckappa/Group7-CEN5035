@@ -224,9 +224,9 @@ const Instructor = () => {
 
       <div className="main-content">
         {/* Conditionally render components based on activeSection */}
-        {activeSection === 'courses' && <Courses />}
+        {/* {activeSection === 'courses' && <Courses />} */}
         {activeSection === 'assignments' && <Assignments />}
-        {activeSection === 'applicants' && <Applicants />}
+        {/* {activeSection === 'applicants' && <Applicants />} */}
       </div>
     </div>
   );

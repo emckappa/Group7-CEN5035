@@ -4,6 +4,9 @@ import AdminAddCourseForm from '../usercomp/admin/AdminAddCourseForm';
 import ExistingCoursesAdmin from '../usercomp/admin/ExistingCoursesAdmin';
 import Sidebar from './Sidebar';
 import ApplicationViewer from '../usercomp/admin/ApplicationViewer';
+import AdminStatus from '../usercomp/admin/AdminStatus';
+import RecommendationForm from '../usercomp/admin/RecommendationForm';
+import SubmittedRecommendations from '../usercomp/admin/SubmittedRecommendation';
 
 
 // export default props => {
@@ -145,10 +148,10 @@ const Admin = () => {
       <div className="main-content">
         {/* Conditionally render components based on activeSection */}
         {activeSection === 'courses' && <AdminAddCourseForm />}
-        {activeSection === 'assignments' && <Assignments />}
+        {activeSection === 'assignments' && <ExistingCoursesAdmin />}
         {activeSection === 'applicants' && <ApplicationViewer />}
-        {activeSection === 'status' && <Status />}
-        {activeSection === 'recommendations' && <Recommendations />}
+        {activeSection === 'status' && <AdminStatus />}
+        {activeSection === 'recommendations' && <SubmittedRecommendations />}
         {activeSection === 'notifications' && <Notifications />}
         {activeSection === 'records' && <Records />}
       </div>
