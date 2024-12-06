@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
+
 // const Login = () => {
 export default props  => {
   const [email, setEmail] = useState('');
@@ -37,6 +38,22 @@ export default props  => {
         sessionStorage.setItem("email", response.data['email']);
 
         props.onFormSwitch(sessionStorage.getItem("role"))
+
+        // Use useNavigate for programmatic navigation
+        // const navigate = useNavigate();
+
+        // const userRole = response.data['role'];
+
+        // // Route users based on their role
+        // if (userRole === 'student') {
+        //   navigate('/student-dashboard');  // Redirect to student dashboard
+        // } else if (userRole === 'staff') {
+        //   navigate('/staff-dashboard');  // Redirect to staff dashboard
+        // } else if (userRole === 'committee') {
+        //   navigate('/committee-dashboard');  // Redirect to committee dashboard
+        // } else if (userRole === 'instructor') {
+        //   navigate('/instructor-dashboard');  // Redirect to instructor dashboard
+        // }
       }
     } catch (error) {
       if (error.response) {

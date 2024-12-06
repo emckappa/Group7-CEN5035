@@ -68,3 +68,67 @@ header.main-background-color a:hover {
     text-decoration: none; /* Optional: Removes underline from links */
 }
 
+/* Tooltip container */
+.tooltip-container {
+    position: relative;
+    display: inline-block;
+}
+  
+  /* Tooltip text */
+.tooltip-text {
+    visibility: hidden;
+    width: 250px; /* Adjust width as necessary */
+    background-color: black;
+    color: white;
+    text-align: center;
+    border-radius: 5px;
+    padding: 8px;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%; /* Position the tooltip above the icon */
+    left: 100%;
+    margin-left: -125px; /* Center the tooltip */
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+  /* Show the tooltip when hovering over the tooltip-container */
+.tooltip-container:hover .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+}
+
+
+/* Sidebar */
+.sidebar {
+  width: 200px; /* Width of the sidebar */
+  background-color: #ffffff;
+  color: #003366;
+  padding: 20px;
+  position: fixed; /* Sidebar stays on the left side */
+  height: 100%;
+  left: 0;
+  align-items: flex-start; /* Align buttons to the left */
+}
+
+.sidebar button {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 10px;
+  background-color: #003366;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+  text-align: left; /* Align text to the left */
+}
+
+.sidebar button.active {
+  background-color: #4d6c8d; /* Blue color for active button */
+}
+
+.sidebar button:hover {
+  background-color: #4D4C55;
+}
+
+

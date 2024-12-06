@@ -8,7 +8,6 @@ export default props => {
     const [role, setRole] = useState('');
     const [error, setError] = useState(null);
     const [userData, setUserData] = useState(null);
-    const user = JSON.parse(sessionStorage.getItem("user"))
 
     useEffect(() => {
       if (userData) {
@@ -96,13 +95,6 @@ export default props => {
               
           </div>
         </form>
-
-        <div>
-          Username: {user.username}, 
-          Password: {user.password_hash}, 
-          Email: {user.email}, 
-          Role: {user.role}
-        </div>
       </div>
     );
   };

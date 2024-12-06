@@ -3,7 +3,6 @@ import { createRoot } from 'react-dom/client';
 import { Auth0Provider } from '@auth0/auth0-react';
 import './index.css';
 import App from './App.jsx';
-import App2 from './App2.jsx';
 import Header from './components/header.jsx';
 import { authConfig } from './authConfig'; // Ensure this path matches where you saved authConfig.js
 
@@ -18,7 +17,6 @@ createRoot(document.getElementById('root')).render(
     >
       <Header />
       <App />
-      <App2 />
     </Auth0Provider>
   </StrictMode>
 );
