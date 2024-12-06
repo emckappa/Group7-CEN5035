@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import ApplicationViewer from './ApplicationViewer'; // Import ApplicationViewer
 
 // TA Application Form Component
 const TAApplicationForm = ({ addApplicant }) => {
@@ -196,6 +197,13 @@ const Instructor = () => {
         ) : (
           <p>No applicants submitted yet.</p>
         )}
+      </div>
+
+      {/* Add ApplicationViewer component here */}
+      <hr />
+      <div>
+        <h3>All Applications</h3>
+        <ApplicationViewer />
       </div>
     </div>
   );
