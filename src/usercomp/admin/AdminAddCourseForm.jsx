@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { supabase } from "/src/utilities/supabaseClient"; // Ensure your Supabase client is set up correctly
+import axios from "axios";
 import AdminCoursesViewer from "./AdminCoursesViewer";
 
 const AdminAddCourseForm = () => {
@@ -30,32 +31,29 @@ const AdminAddCourseForm = () => {
     e.preventDefault();
     setMessage(""); // Clear any previous messages
 
+    const course_code = formData.courseCode
+    const course_name = formData.courseName
+    const term = formData.term
+    const year = parseInt(formData.year)
+    const instructor = formData.instructor
+    const description = formData.description
+
     try {
-      const { data, error } = await supabase
-        .from("courses") // Replace with your actual table name
-        .insert([
-          {
-            course_code: formData.courseCode,
-            course_name: formData.courseName,
-            term: formData.term,
-            year: parseInt(formData.year), // Ensure the year is a number
-            instructor: formData.instructor,
-            description: formData.description,
-          },
-        ]);
-
-      if (error) throw error;
-
-      setMessage("Course added successfully!");
-      // Reset the form
-      setFormData({
-        courseCode: "",
-        courseName: "",
-        term: "",
-        year: "",
-        instructor: "",
-        description: "",
+      const response = await axios.post('http://localhost:8000/api/courses/create/', {course_code, course_name, term, year, instructor, description}, {
+        headers: {'Content-Type': 'application/json',},
       });
+      
+      if (response.status === 201) {
+        console.log('Course Added:', response.data);
+        setFormData({
+          courseCode: "",
+          courseName: "",
+          term: "",
+          year: "",
+          instructor: "",
+          description: "",
+        });
+      }
     } catch (err) {
       setMessage(`Error: ${err.message}`);
     }
