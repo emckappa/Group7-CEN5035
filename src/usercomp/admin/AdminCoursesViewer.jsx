@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { supabase } from '/src/utilities/supabaseClient';
+import axios from 'axios';
 
 const AdminCoursesViewer = () => {
   const [data, setData] = useState([]);
@@ -9,12 +9,16 @@ const AdminCoursesViewer = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const { data, error } = await supabase
-          .from('courses') // Replace with your table name
-          .select('*'); // Adjust the columns you want to fetch
+        const response = await axios.get('http://localhost:8000/api/courses/', {
+          headers: {'Content-Type': 'application/json',},
+        });
 
-        if (error) throw error;
-        setData(data);
+        if (response.status === 200) {
+          const data = response.data;
+          setData(data);
+        } else {
+          setError('Failed to fetch data');
+        }
       } catch (err) {
         setError(err.message);
       } finally {

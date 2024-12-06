@@ -20,9 +20,7 @@ export default props  => {
 
     try {
       const response = await axios.post('http://localhost:8000/api/login/', {email, password}, {
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: {'Content-Type': 'application/json',},
       });
       
       if (response.status === 200) {

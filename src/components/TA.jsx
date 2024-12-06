@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Sidebar from './Sidebar';
 import AdminCoursesViewer from '../usercomp/admin/AdminCoursesViewer';
+import Apply from '../usercomp/ta/TAApply';
 // import Assignments from './Assignments';
 // import Applicants from './Applicants';
 
@@ -21,7 +22,7 @@ const TA = () => {
         {/* Conditionally render components based on activeSection */}
         {activeSection === 'courses' && <AdminCoursesViewer />}
         {activeSection === 'assignments' && <Assignments />}
-        {activeSection === 'Apply' && <Apply />}
+        {activeSection === 'apply' && <Apply />}
         {activeSection === 'status' && <Status />}
       </div>
     </div>
