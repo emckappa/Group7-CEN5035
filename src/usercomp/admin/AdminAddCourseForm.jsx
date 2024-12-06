@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { supabase } from "/src/utilities/supabaseClient"; // Ensure your Supabase client is set up correctly
+import AdminCoursesViewer from "./AdminCoursesViewer";
 
 const AdminAddCourseForm = () => {
   // State to manage form inputs
@@ -8,6 +9,8 @@ const AdminAddCourseForm = () => {
     courseName: "",
     term: "",
     year: "",
+    instructor: "",
+    description: "",
   });
 
   // State for success or error messages
@@ -36,6 +39,8 @@ const AdminAddCourseForm = () => {
             course_name: formData.courseName,
             term: formData.term,
             year: parseInt(formData.year), // Ensure the year is a number
+            instructor: formData.instructor,
+            description: formData.description,
           },
         ]);
 
@@ -48,6 +53,8 @@ const AdminAddCourseForm = () => {
         courseName: "",
         term: "",
         year: "",
+        instructor: "",
+        description: "",
       });
     } catch (err) {
       setMessage(`Error: ${err.message}`);
@@ -111,6 +118,30 @@ const AdminAddCourseForm = () => {
             style={{ width: "100%", padding: "8px" }}
           />
         </div>
+        <div style={{ marginBottom: "10px" }}>
+          <label htmlFor="instructor">Instructor Name:</label>
+          <input
+            type="text"
+            id="instructor"
+            name="instructor"
+            value={formData.instructor}
+            onChange={handleChange}
+            required
+            style={{ width: "100%", padding: "8px" }}
+          />
+        </div>
+        <div style={{ marginBottom: "10px" }}>
+          <label htmlFor="description">Description:</label>
+          <input
+            type="text"
+            id="description"
+            name="description"
+            value={formData.description}
+            onChange={handleChange}
+            required
+            style={{ width: "100%", padding: "8px" }}
+          />
+        </div>
         <button
           type="submit"
           style={{
@@ -125,6 +156,9 @@ const AdminAddCourseForm = () => {
           Add Course
         </button>
       </form>
+      <div>
+      <AdminCoursesViewer />
+      </div>
     </div>
   );
 };

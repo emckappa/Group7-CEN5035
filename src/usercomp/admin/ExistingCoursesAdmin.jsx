@@ -5,14 +5,14 @@ const ExistingCoursesAdmin = () => {
     <div className="container mt-4">
       {/* Trigger Button */}
       <button
-        className="btn btn-primary"
+        className="btn btn-primary blue-button-group"
         type="button"
         data-bs-toggle="collapse"
         data-bs-target="#collapseExample"
         aria-expanded="false"
         aria-controls="collapseExample"
       >
-        View existing courses
+        View Existing Assignments
       </button>
 
       {/* Collapsible Content */}
@@ -21,6 +21,14 @@ const ExistingCoursesAdmin = () => {
           {/* TODO: add course list */}
           <div className="accordion" id="coursesAccordion">
             {[
+              {
+                courseName: "COP 500: Introduction to AI",
+                description:
+                  "An introduction to Artificial Intelligence",
+                semester: "Summer 2024",
+                instructor: "Dr. John Smith",
+                tas: ["None"],
+              },
               {
                 courseName: "COP 5615: Advanced Operating Systems",
                 description:
