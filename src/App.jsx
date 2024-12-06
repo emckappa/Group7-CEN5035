@@ -87,7 +87,7 @@ function App() {
               <button onClick={() => setCurrentForm('card')} className={currentForm === 'card' ? 'active' : ''}>
                 Card
               </button>
-              <button onClick={() => {setCurrentForm('login'); sessionStorage.removeItem("role");}} className={currentForm === 'card' ? 'active' : ''}>
+              <button onClick={() => {setCurrentForm('login'); sessionStorage.removeItem("role");}} className={currentForm === 'login' ? 'active' : ''}>
                 Logout
               </button>
           </div>

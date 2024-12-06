@@ -26,10 +26,17 @@ export default props => {
         });
         
         if (response.status === 201) {
-            console.log('Registration successful:', response.data);
-            setUserData(response.data);
+          console.log('Registration successful:', response.data);
+          setUserData(response.data);
 
-            sessionStorage.setItem("user", JSON.stringify(response.data))
+          sessionStorage.setItem("user", JSON.stringify(response.data))
+          sessionStorage.setItem("user_id", response.data['user_id']);
+          sessionStorage.setItem("name", response.data['username']);
+          sessionStorage.setItem("password", response.data['password_hash']);
+          sessionStorage.setItem("role", response.data['role']);
+          sessionStorage.setItem("email", response.data['email']);
+          
+          props.onFormSwitch(sessionStorage.getItem("role"))
         }
       } catch (error) {
         if (error.response) {
