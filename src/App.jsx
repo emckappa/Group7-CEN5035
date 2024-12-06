@@ -112,7 +112,6 @@ function App() {
     
   return (
     <div className="container-fluid">
-      {/* Sidebar on the left */}
       
       <div className="page-title align-items-center justify-content-center container-fluid">
         <div className="row align-items-center">
