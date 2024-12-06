@@ -1,11 +1,9 @@
 import React, { useState } from 'react';
 import {Card, Container, Form, InputGroup} from 'react-bootstrap'
-import AdminAddCourseForm from '/src/components/AdminAddCourseForm';
-import ExistingCoursesAdmin from '/src/components/ExistingCoursesAdmin';
-import AdminApplicationViewer from '/src/components/AdminApplicationViewer';
-import AdminCoursesViewer from '/src/components/AdminCoursesViewer';
+import AdminAddCourseForm from '../usercomp/admin/AdminAddCourseForm';
+import ExistingCoursesAdmin from '../usercomp/admin/ExistingCoursesAdmin';
 import Sidebar from './Sidebar';
-import ApplicationViewer from './ApplicationViewer';
+import ApplicationViewer from '../usercomp/admin/ApplicationViewer';
 
 
 // export default props => {

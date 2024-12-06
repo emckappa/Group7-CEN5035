@@ -77,10 +77,16 @@ const Sidebar = ({ activeSection, setActiveSection, role }) => {
               Assignments
             </button>
             <button
-              onClick={() => handleButtonClick('applicants')}
-              className={activeSection === 'applicants' ? 'active' : ''}
+              onClick={() => handleButtonClick('apply')}
+              className={activeSection === 'apply' ? 'active' : ''}
             >
-              Applicants
+              Apply
+            </button>
+            <button
+              onClick={() => handleButtonClick('status')}
+              className={activeSection === 'status' ? 'active' : ''}
+            >
+              Status
             </button>
           </>
         );
@@ -101,6 +107,29 @@ const Sidebar = ({ activeSection, setActiveSection, role }) => {
             </button>
           </>
         );
+        case 'instructor':
+          return (
+            <>
+              <button
+                onClick={() => handleButtonClick('records')}
+                className={activeSection === 'records' ? 'active' : ''}
+              >
+                Courses
+              </button>
+              <button
+                onClick={() => handleButtonClick('records')}
+                className={activeSection === 'records' ? 'active' : ''}
+              >
+                Records
+              </button>
+              <button
+                onClick={() => handleButtonClick('status')}
+                className={activeSection === 'status' ? 'active' : ''}
+              >
+                Status
+              </button>
+            </>
+          );
       default:
         return (
           <button
