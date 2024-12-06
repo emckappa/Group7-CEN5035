@@ -38,22 +38,6 @@ export default props  => {
         sessionStorage.setItem("email", response.data['email']);
 
         props.onFormSwitch(sessionStorage.getItem("role"))
-
-        // Use useNavigate for programmatic navigation
-        // const navigate = useNavigate();
-
-        // const userRole = response.data['role'];
-
-        // // Route users based on their role
-        // if (userRole === 'student') {
-        //   navigate('/student-dashboard');  // Redirect to student dashboard
-        // } else if (userRole === 'staff') {
-        //   navigate('/staff-dashboard');  // Redirect to staff dashboard
-        // } else if (userRole === 'committee') {
-        //   navigate('/committee-dashboard');  // Redirect to committee dashboard
-        // } else if (userRole === 'instructor') {
-        //   navigate('/instructor-dashboard');  // Redirect to instructor dashboard
-        // }
       }
     } catch (error) {
       if (error.response) {
@@ -64,51 +48,7 @@ export default props  => {
         setError('Something went wrong. Please try again.');
       }
     }
-
-    // axios.post('http://localhost:5176/login', {
-    //   email, 
-    //   password
-    // }, {
-    //   headers: {
-    //     'Contetnt-type': 'application/json'
-    //   }
-    // })
-    //   .then(response => {
-    //     const data = response.data;
-    //     console.log(data)
-    //   })
-    }  
-
-  // const handleLogin = (e) => {
-  //   e.preventDefault();
-  //   console.log("hi")
-
-  //   if (email == 'TA@gmail.com' && password == '123') {
-  //     // Save login status to localStorage or a global state
-  //     sessionStorage.setItem("userType", "TA");
-  //     console.log(sessionStorage.getItem("userType"))
-  //     props.onFormSwitch('TA')
-  //   } 
-  //   else if (email === 'admin@gmail.com' && password === '123') {
-  //     sessionStorage.setItem("userType", "admin");
-  //     console.log(sessionStorage.getItem("userType"))
-  //     props.onFormSwitch('admin')
-  //   }
-  //   else if (email === 'committee@gmail.com' && password === '123') {
-  //     sessionStorage.setItem("userType", "committee");
-  //     console.log(sessionStorage.getItem("userType"))
-  //     props.onFormSwitch('committee')
-  //   }
-  //   else if (email === 'instructor@gmail.com' && password === '123') {
-  //     sessionStorage.setItem("userType", "instructor");
-  //     console.log(sessionStorage.getItem("userType"))
-  //     props.onFormSwitch('instructor')
-  //   }
-    
-  //   else {
-  //     alert('Invalid credentials');
-  //   }
-  // }
+  }  
 
   return (
     <form onSubmit={handleLogin} className="login-form">
