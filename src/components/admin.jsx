@@ -5,6 +5,7 @@ import ExistingCoursesAdmin from '/src/components/ExistingCoursesAdmin';
 import AdminApplicationViewer from '/src/components/AdminApplicationViewer';
 import AdminCoursesViewer from '/src/components/AdminCoursesViewer';
 import Sidebar from './Sidebar';
+import ApplicationViewer from './ApplicationViewer';
 
 
 // export default props => {
@@ -127,6 +128,8 @@ import Sidebar from './Sidebar';
 //   </div>
 //   );
 // };
+//-----------------------------------------------------------------------------------------//
+
 
 const Admin = () => {
   const [activeSection, setActiveSection] = useState(null);  // State to track the active section
@@ -143,9 +146,9 @@ const Admin = () => {
 
       <div className="main-content">
         {/* Conditionally render components based on activeSection */}
-        {activeSection === 'courses' && <Courses />}
+        {activeSection === 'courses' && <AdminAddCourseForm />}
         {activeSection === 'assignments' && <Assignments />}
-        {activeSection === 'applicants' && <Applicants />}
+        {activeSection === 'applicants' && <ApplicationViewer />}
         {activeSection === 'status' && <Status />}
         {activeSection === 'recommendations' && <Recommendations />}
         {activeSection === 'notifications' && <Notifications />}
