@@ -205,6 +205,7 @@
 
 import React, { useState } from 'react';
 import Sidebar from './Sidebar'; // Import Sidebar component
+import InstructorRecords from '../usercomp/instructor/InstructorRecords';
 // import Courses from './Courses';
 // import Assignments from './Assignments';
 // import Applicants from './Applicants';
@@ -225,7 +226,7 @@ const Instructor = () => {
       <div className="main-content">
         {/* Conditionally render components based on activeSection */}
         {/* {activeSection === 'courses' && <Courses />} */}
-        {activeSection === 'assignments' && <Assignments />}
+        {activeSection === 'records' && <InstructorRecords />}
         {/* {activeSection === 'applicants' && <Applicants />} */}
       </div>
     </div>
